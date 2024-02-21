@@ -18,8 +18,8 @@ The chatbot uses natural language processing and machine learning to understand 
 
 To install the chatbot, you need to have Python 3.7 or higher and pip installed on your system. Then, follow these steps:
 
-- Clone this repository to your local machine: `git clone https://github.com/foxyAI-Corp/git-repo-chatbot.git`
-- Navigate to the project directory: `cd git-repo-chatbot`
+- Clone this repository to your local machine: `git clone https://github.com/foxyAI-Corp/gitwhisper.git`
+- Navigate to the project directory: `cd gitwhisper`
 - Install the required dependencies: `pip install -r requirements.txt`
 - Run the chatbot: `python chatbot.py`
 
