@@ -27,11 +27,11 @@ To install the chatbot, you need to have Python 3.7 or higher and pip installed 
 
 To use the chatbot, you need to have a Git repository that you want to work with. The chatbot will ask you for the path to your repository and then start a conversation with you. You can ask the chatbot any question or request related to your repository, such as:
 
-- How do I create a new branch?
-- What is the status of my repository?
-- How do I merge the master branch into my branch?
-- How do I build and run my code?
-- How do I undo the last commit?
+- > How do I create a new branch?
+- > What is the status of my repository?
+- > How do I merge the master branch into my branch?
+- > How do I build and run my code?
+- > How do I undo the last commit?
 
 The chatbot will try to answer your question or perform your request, and give you feedback on the result. You can also ask the chatbot for help or exit the conversation at any time.
 
