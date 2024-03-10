@@ -163,7 +163,7 @@ def main():
 					if Path(sys.argv[3]).is_file():
 						print(make_context(sys.argv[1], gitignore_path=sys.argv[3]))
 					else:
-						raise FileNotFoundException(f"No such file: {sys.argv[3]}")
+						raise FileNotFoundError(f"No such file: {sys.argv[3]}")
 				else:
 					raise TypeError(f'Unknown parameter: {sys.argv[2]}')
 			else:
