@@ -138,18 +138,21 @@ def main():
 		return context
 
 	if len(sys.argv) >= 2:
-		# try:
-		ctx = make_context(sys.argv[1])
-		if len(sys.argv) >= 4:
-			if sys.argv[2] == "-o" or sys.argv[2] == "--output":
-				with open(sys.argv[3], 'w') as f:
-					f.write(ctx)
+		try:
+			ctx = make_context(sys.argv[1])
+			if len(sys.argv) >= 4:
+				if sys.argv[2] == "-o" or sys.argv[2] == "--output":
+					try:
+						with open(sys.argv[3], 'w') as f:
+							f.write(ctx)
+					except FileNotFoundError as e:
+						print(f'{e}\nTry to make yourself the directory before.')
+				else:
+					raise TypeError(f'Unknown parameter: {sys.argv[2]}')
 			else:
-				raise TypeError(f'Unknown parameter: {sys.argv[2]}')
-		else:
-			print(ctx)
-		# except Exception as e:
-			# print(str(e))
+				print(ctx)
+		except Exception as e:
+			print(str(e))
 
 if __name__ == "__main__":
 	main()
