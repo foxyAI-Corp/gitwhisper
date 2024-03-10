@@ -142,11 +142,11 @@ def main():
 			ctx = make_context(sys.argv[1])
 			if len(sys.argv) >= 4:
 				if sys.argv[2] == "-o" or sys.argv[2] == "--output":
-					try:
-						with open(sys.argv[3], 'w') as f:
-							f.write(ctx)
-					except FileNotFoundError as e:
-						print(f'{e}\nTry to make yourself the directory before.')
+					output_dir = Path(sys.argv[3]).parent
+					if not output_dir.is_dir():
+						output_dir.mkdir(parents=True)
+					with open(sys.argv[3], 'w', encoding='utf-8') as f:
+						f.write(ctx)
 				else:
 					raise TypeError(f'Unknown parameter: {sys.argv[2]}')
 			else:
