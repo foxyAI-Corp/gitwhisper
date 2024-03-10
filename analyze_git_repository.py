@@ -138,15 +138,18 @@ def main():
 		return context
 
 	if len(sys.argv) >= 2:
-		try:
-			ctx = make_context(sys.argv[1])
-			if len(sys.argv) >= 4 and sys.argv[2] == "-o" or sys.argv[2] == "--output":
+		# try:
+		ctx = make_context(sys.argv[1])
+		if len(sys.argv) >= 4:
+			if sys.argv[2] == "-o" or sys.argv[2] == "--output":
 				with open(sys.argv[4], 'w') as f:
 					f.write(ctx)
 			else:
-				print(ctx)
-		except Exception as e:
-			print(str(e))
+				raise TypeError(f'Unknown parameter: {sys.argv[2]}')
+		else:
+			print(ctx)
+		# except Exception as e:
+			# print(str(e))
 
 if __name__ == "__main__":
 	main()
