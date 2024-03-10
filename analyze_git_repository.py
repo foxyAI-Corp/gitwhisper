@@ -2,13 +2,19 @@ from pathlib import Path
 import sys
 
 def main():
-	def analyze(repository_path: str):
+	def analyze(repository_path: str, gitignore_path: str = None):
 		"""
 		Analyze a Git repository and make a text sting with the tree structure and each filname with file content.
 		repository_path: Path of the repository.
 		"""
+		if gitignore_path != None and type(gitignore_path) == str:
+			tree = make_tree(repository_path, gitignore_path=gitignore_path)[0]
+		else:
+			tree = make_tree(repository_path)[0]
 
-		return make_tree(repository_path)[0], make_files(repository_path)
+		files = make_files(repository_path)
+
+		return tree, files
 
 	def get_gitignore_data(gitignore_file_path: str):
 		"""
@@ -29,7 +35,7 @@ def main():
 
 		return file_data
 
-	def make_tree(repository_path: str):
+	def make_tree(repository_path: str, gitignore_path: str = None):
 		"""
 		Make a text string of the tree structure of the Git repository.
 		repository_path: Path of the repository.
@@ -47,7 +53,10 @@ def main():
 		tee =    '├── '
 		last =   '└── '
 
-		path_to_ignore = get_gitignore_data(repository_path + "/.gitignore")
+		if gitignore_path != None and type(gitignore_path) == str:
+			path_to_ignore = get_gitignore_data(gitignore_path)
+		else:
+			path_to_ignore = get_gitignore_data(repository_path + "/.gitignore")
 
 		def make_tree_structure(dir_path: Path, prefix: str=''):
 			contents = list(dir_path.iterdir())
@@ -126,12 +135,15 @@ def main():
 
 		return files
 
-	def make_context(repository_path: str):
+	def make_context(repository_path: str, gitignore_path: str = None):
 		"""
 		Create the text string context for the chabot.
 		repository_path: Path of the repository.
 		"""
-		analized = analyze(repository_path)
+		if gitignore_path != None and type(gitignore_path) == str:
+			analized = analyze(repository_path, gitignore_path=gitignore_path)
+		else:
+			analized = analyze(repository_path)
 
 		context = "We talk about the repository in the folder `" + repository_path + "`\nHere is the tree of the repository:\n" + analized[0] + "\nAnd here is all the files of the repository:\n" + analized[1]
 
@@ -147,6 +159,11 @@ def main():
 						output_dir.mkdir(parents=True)
 					with open(sys.argv[3], 'w', encoding='utf-8') as f:
 						f.write(ctx)
+				elif sys.argv[2] == "-g" or sys.argv[2] == "--gitignore":
+					if Path(sys.argv[3]).is_file():
+						print(make_context(sys.argv[1], gitignore_path=sys.argv[3]))
+					else:
+						raise FileNotFoundException(f"No such file: {sys.argv[3]}")
 				else:
 					raise TypeError(f'Unknown parameter: {sys.argv[2]}')
 			else:
