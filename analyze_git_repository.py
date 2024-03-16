@@ -1,4 +1,5 @@
 from pathlib import Path
+import colorama
 import inspect
 import traceback
 import argparse
@@ -188,6 +189,8 @@ def main():
 	parser.add_argument("--output", "-o", metavar="output_file", help="Output file to save the analysis.")
 	parser.add_argument("--gitignore", "-g", metavar="gitignore_file", help="Path to a custom `.gitignore` file.")
 
+	colorama.init(convert=True)
+
 	args, unknown_args = parser.parse_known_args()
 
 	try:
@@ -221,8 +224,8 @@ def main():
 		if inspect.isfunction(obj):
 			func_name += "()"
 
-		print(f'Error ({type(e).__name__}):')
-		print(f'    Line {line_num} in {func_name}: {error}')
+		print(f'{colorama.Fore.RED}Error ({type(e).__name__}):')
+		print(f'    Line {line_num} in {func_name}: {error}{colorama.Fore.RESET}')
 
 if __name__ == "__main__":
 	main()
