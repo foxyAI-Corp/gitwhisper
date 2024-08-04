@@ -38,19 +38,22 @@ def open_repository(repo_path):
     path = pathlib.Path(repo_path)
 
     if path.exists() and path.is_dir():
-        repository = path
+        if (path / '.git').exists() and (path / '.git').is_dir():
+            repository = path
+        else:
+            raise ValueError(f'"{path}" is not a Git repository')
     else:
-        raise FileNotFoundError(f'No such repository: {path}')
+        raise FileNotFoundError(f'No such repository: "{path}"')
 
 def diff_check():
     global repository
 
     try:
-        return bool(subprocess.check_output(
+        return subprocess.check_output(
             ['git', f'--git-dir={repository / '.git'}', f'--work-tree={repository}', 'diff']
-        ).decode('utf-8'))
-    except subprocess.CalledProcessError:
-        pass
+        ).decode('utf-8') == ''
+    except subprocess.CalledProcessError as e:
+        raise ChildProcessError(f'Diff check returned the {e.returncode} exit code')
 
 def get_context():
     global repository, context
@@ -61,7 +64,7 @@ def get_context():
                 ['py', 'analyze_git_repository.py', '--from-subproc', repository]
             ).decode('utf-8')).decode('utf-8')
         except subprocess.CalledProcessError:
-            context =  f'Error during the generation of the context of the repository in {repository}.'
+            context =  f'Error during the generation of the context of the repository in "{repository}".'
     else:
         context = 'Context not changed'
 
@@ -78,6 +81,7 @@ def start_chat():
 def send_message(msg, *, stream):
     global chat
     full_msg = f'[[== Context ==]]\n{get_context()}\n[[== END Context ==]]\n{msg}'
+    print(full_msg)
 
     if chat is not None:
         return chat.send_message(full_msg, stream=stream)
