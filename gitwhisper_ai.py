@@ -40,21 +40,28 @@ def open_repository(repo_path):
     else:
         raise FileNotFoundError(f'No such repository: {path}')
 
+def diff_check():
+    global repository
+
+    try:
+        return bool(subprocess.check_output(
+            ['git', f'--git-dir={repository / '.git'}', f'--work-tree={repository}', 'diff']
+        ).decode('utf-8'))
+    except subprocess.CalledProcessError:
+        pass
+
 def get_context():
     global repository, context
 
-    try:
-        diff = subprocess.check_output(
-            ['git', f'--git-dir={repository / '.git'}', f'--work-tree={repository}', 'diff']
-        ).decode('utf-8')
-    finally:
+    if diff_check() or context is None:
         try:
-            if diff != '' or context is None:
-                context = literal_eval(subprocess.check_output(
-                    ['py', 'analyze_git_repository.py', '--from-subproc', repository]
-                ).decode('utf-8')).decode('utf-8')
+            context = literal_eval(subprocess.check_output(
+                ['py', 'analyze_git_repository.py', '--from-subproc', repository]
+            ).decode('utf-8')).decode('utf-8')
         except subprocess.CalledProcessError:
             context =  f'Error during the generation of the context of the repository in {repository}.'
+    else:
+        context = 'Context not changed'
 
     return context
 
