@@ -4,6 +4,7 @@ load_dotenv()
 
 import subprocess
 import os
+import sys
 import platform
 import pathlib
 
@@ -61,7 +62,7 @@ def get_context():
     if diff_check() or context is None:
         try:
             context = literal_eval(subprocess.check_output(
-                ['py', 'analyze_git_repository.py', '--from-subproc', repository]
+                [sys.executable, 'analyze_git_repository.py', '--from-subproc', repository]
             ).decode('utf-8')).decode('utf-8')
         except subprocess.CalledProcessError:
             context =  f'Error during the generation of the context of the repository in "{repository}".'
