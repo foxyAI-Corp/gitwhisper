@@ -29,3 +29,5 @@ if args.cli:
             print(chunk.text, flush=True, end='')
 
         placeholder = "User: "
+elif args.ui:
+    import chatbot_ui
