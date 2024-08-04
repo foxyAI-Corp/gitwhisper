@@ -28,6 +28,7 @@ When responding to user questions and requests, follow these guidelines:
 )
 chat = None
 repository = None
+context = None
 
 def open_repository(repo_path):
     global repository
@@ -40,14 +41,20 @@ def open_repository(repo_path):
         raise FileNotFoundError(f'No such repository: {path}')
 
 def get_context():
-    global repository
+    global repository, context
 
     try:
-        return literal_eval(subprocess.check_output(
-            ['py', 'analyze_git_repository.py', '--from-subproc', repository]
-        ).decode('utf-8')).decode('utf-8')
-    except subprocess.CalledProcessError:
-        return f'Error during the generation of the context of the repository in {repository}.'
+        diff = subprocess.check_output(
+            ['git', f'--git-dir={repository / '.git'}', f'--work-tree={repository}', 'diff']
+        ).decode('utf-8')
+    finally:
+        try:
+            if diff != '':
+                context = literal_eval(subprocess.check_output(
+                    ['py', 'analyze_git_repository.py', '--from-subproc', repository]
+                ).decode('utf-8')).decode('utf-8')
+        except subprocess.CalledProcessError:
+            context =  f'Error during the generation of the context of the repository in {repository}.'
 
 def start_chat():
     global chat, model, repository
