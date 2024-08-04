@@ -2,3 +2,4 @@ colorama
 pyperclip
 google-generativeai
 python-dotenv
+PyQt5
