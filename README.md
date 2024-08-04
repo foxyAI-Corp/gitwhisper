@@ -27,6 +27,7 @@ cd gitwhisper
 ```sh
 pip install -r requirements.txt
 ```
+- Set the `GOOGLE_GENAI_APIKEY` environment variable to your Gemini API Key.
 
 ## Usage
 
