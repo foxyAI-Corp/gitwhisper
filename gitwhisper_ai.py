@@ -50,9 +50,9 @@ def diff_check():
     global repository
 
     try:
-        return subprocess.check_output(
+        return '' == subprocess.check_output(
             ['git', f'--git-dir={repository / '.git'}', f'--work-tree={repository}', 'diff']
-        ).decode('utf-8') != ''
+        ).decode('utf-8')
     except subprocess.CalledProcessError as e:
         raise ChildProcessError(f'Diff check returned the {e.returncode} exit code')
 
