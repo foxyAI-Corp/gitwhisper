@@ -56,6 +56,8 @@ def get_context():
         except subprocess.CalledProcessError:
             context =  f'Error during the generation of the context of the repository in {repository}.'
 
+    return context
+
 def start_chat():
     global chat, model, repository
 
