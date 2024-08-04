@@ -26,6 +26,6 @@ if args.cli:
         resp = gitwhisper_ai.send_message(usr_inp, stream=True)
 
         for chunk in resp:
-            print(chunk.text, end='')
+            print(chunk.text, flush=True, end='')
 
         placeholder = "User: "
