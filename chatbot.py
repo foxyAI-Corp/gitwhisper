@@ -21,7 +21,7 @@ if args.cli:
         if usr_inp.lower() == "exit":
             sys.exit(0)
 
-        print("GitWhisper: ", end='')
+        print("GitWhisper: ", end='', flush=True)
 
         resp = gitwhisper_ai.send_message(usr_inp, stream=True)
 
