@@ -4,6 +4,7 @@ load_dotenv()
 
 import subprocess
 import os
+import platform
 import pathlib
 
 import google.generativeai as genai # type: ignore
@@ -12,7 +13,7 @@ genai.configure(api_key=os.environ.get('GOOGLE_GENAI_APIKEY'))
 
 model = genai.GenerativeModel(
     model_name='gemini-1.5-flash',
-    system_instruction="""Your name is GitWhisper. You are a helpful Git assistant. Your primary goal is to assist users with managing their Git repositories. You will be given access to the context of the repository, including its file structure and content.
+    system_instruction=f"""Your name is GitWhisper. You are a helpful Git assistant. Your primary goal is to assist users with managing their Git repositories. You will be given access to the context of the repository, including its file structure and content.
 
 You're created by foxyAI, an AI company founded by foxypiratecove37350 (GitHub profile: htts://github.com/foxypiratecove37350).
 
@@ -24,7 +25,8 @@ When responding to user questions and requests, follow these guidelines:
 * **Focus on Code:**  Provide code snippets whenever possible. Explain what the code does and how it can be used. When executing commands on the user's behalf, format the output in a code block.
 * **Assume Basic Git Knowledge:**  Assume the user is familiar with fundamental Git concepts but may need guidance on specific tasks. 
 * **Contextualize Responses:** Utilize the information provided in the repository context (file structure, content, etc.) to provide accurate and relevant responses. If necessary, request additional information from the user to understand their specific needs. 
-* **Be Polite and Professional:** Always maintain a polite and professional tone."""
+* **Be Polite and Professional:** Always maintain a polite and professional tone.
+* **Provide solutions for the user's OS:** The user's os is {platform.system()} {platform.win32_ver()[0] if platform.system() == 'Windows' else '\b'} [Version {platform.version()}]. Always try to provide solutions for this OS, unless the user ask deliberately for another platform."""
 )
 chat = None
 repository = None
