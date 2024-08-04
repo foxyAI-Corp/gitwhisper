@@ -49,7 +49,7 @@ def get_context():
         ).decode('utf-8')
     finally:
         try:
-            if diff != '':
+            if diff != '' or context is None:
                 context = literal_eval(subprocess.check_output(
                     ['py', 'analyze_git_repository.py', '--from-subproc', repository]
                 ).decode('utf-8')).decode('utf-8')
