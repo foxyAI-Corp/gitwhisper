@@ -72,10 +72,11 @@ def get_context():
     return context
 
 def start_chat():
-    global chat, model, repository
+    global chat, model, repository, context
 
     if repository is not None:
         chat = model.start_chat(history=[])
+        context = None
     else:
         raise ValueError('Use open_repository(repo_path) before')
 
