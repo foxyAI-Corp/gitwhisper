@@ -1,5 +1,7 @@
 colorama
 pyperclip
 google-generativeai
+grpcio==1.60.1
 python-dotenv
 PyQt5
+jsonschema
