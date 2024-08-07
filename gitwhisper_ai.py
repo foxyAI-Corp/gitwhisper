@@ -80,7 +80,7 @@ def start_chat(history = None):
     else:
         raise ValueError('Use open_repository(repo_path) before')
 
-def send_message(msg, *, stream):
+def send_message(msg, *, stream = False):
     global chat
     full_msg = f'[[== Context ==]]\n{get_context()}\n[[== END Context ==]]\n{msg}'
 
