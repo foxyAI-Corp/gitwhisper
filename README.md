@@ -5,6 +5,7 @@
 
 </div>
 
+<br>
 A chatbot to help you with Git repositories, such as editing, building, and running them.
 
 ## Description
@@ -21,7 +22,7 @@ The chatbot uses Google's Gemini API to understand your queries and provide rele
 
 ## Screenshot
 
-[Screenshot of GitWhisper UI version](https://raw.githubusercontent.com/foxyAI-Corp/gitwhisper/main/screenshot.png)
+![Screenshot of GitWhisper UI version](https://raw.githubusercontent.com/foxyAI-Corp/gitwhisper/main/screenshot.png)
 
 ## Installation
 
