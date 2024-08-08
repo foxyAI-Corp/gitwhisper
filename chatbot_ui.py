@@ -10,6 +10,14 @@ import os
 import uuid
 import gitwhisper_ai
 
+def res(str):
+    try:
+        base_path = sys._MEIPASS
+    except AttributeError:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, str)
+
 class FormatedPath(Path):
     def __str__(self):
         return super().__str__().replace(self._flavour.sep, '/')
@@ -225,6 +233,7 @@ class GitWhisperApp(object):
         self.MainWindow.resize(780, 520)
         self.MainWindow.setMinimumSize(500, 350)
         self.MainWindow.setStyleSheet("background-color: #fff;")
+        self.MainWindow.setWindowIcon(QIcon(res('logo.svg')))
         self.MainWindow.resized.connect(self.on_resize)
         self.centralwidget = QWidget(self.MainWindow)
         self.centralwidget.setObjectName("centralwidget")
