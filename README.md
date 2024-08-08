@@ -1,4 +1,9 @@
-# foxyAi GitWhisper
+<div align="center">
+
+<h1>foxyAi GitWhisper</h1>
+<img src="https://raw.githubusercontent.com/foxyAI-Corp/gitwhisper/main/logo.svg" width="150">
+
+</div>
 
 A chatbot to help you with Git repositories, such as editing, building, and running them.
 
@@ -13,6 +18,10 @@ This project is a chatbot that can assist you with various tasks related to Git 
 - And more!
 
 The chatbot uses Google's Gemini API to understand your queries and provide relevant responses. It can also give you tips and best practices for working with Git repositories.
+
+## Screenshot
+
+[Screenshot of GitWhisper UI version](https://raw.githubusercontent.com/foxyAI-Corp/gitwhisper/main/screenshot.png)
 
 ## Installation
 
