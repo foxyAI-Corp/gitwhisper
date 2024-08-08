@@ -2,4 +2,3 @@ __pycache__/
 .mypy_cache/
 .gitwhisper_data/
 .env
-chatbot_ui.py
