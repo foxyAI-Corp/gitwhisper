@@ -6,3 +6,7 @@ python-dotenv
 PyQt5
 jsonschema
 jsonpickle
+# Build UI version
+pyinstaller
+pillow
+svg2png # requires Inkscape to be installed & in the PATH
